@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Firmas - HOMS</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- jsPDF para la generación del PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="logo.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="logo_homs.png" alt="HOMS Logo" class="logo">
+            <h1>Generador de Firmas</h1>
+            <p>Sistema de captura de firmas para digitalización y consentimiento</p>
+        </header>
+
+        <main>
+            <!-- Sección 1: Firma Digital del Médico -->
+            <section class="card" id="doctor-section">
+                <h2>1. Firma Digital del Médico</h2>
+                
+                <div class="form-group">
+                    <label for="doc-name">Nombre del Médico</label>
+                    <input type="text" id="doc-name" placeholder="Ej. Dra. Rosio Muñoz">
+                </div>
+                
+                <div class="form-group">
+                    <label for="doc-specialty">Especialidad</label>
+                    <input type="text" id="doc-specialty" placeholder="Ej. Radiólogo - Imagen e intervención Mamaria">
+                </div>
+                
+                <div class="form-group">
+                    <label for="doc-exq">Exequatur</label>
+                    <input type="text" id="doc-exq" placeholder="Ej. 304-06">
+                </div>
+                
+                <div class="canvas-container">
+                    <label>Firme aquí:</label>
+                    <!-- El tamaño interno del canvas es 500x200 para mantener buena resolución -->
+                    <canvas id="canvas-doctor" width="500" height="200"></canvas>
+                    <div class="canvas-actions">
+                        <button class="btn btn-secondary" onclick="clearCanvas('canvas-doctor')">Limpiar Firma</button>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" onclick="generateDoctorImage()">Generar Imagen de Firma</button>
+            </section>
+
+            <!-- Sección 2: Consentimiento Ramsoft -->
+            <section class="card" id="consent-section">
+                <h2>2. Consentimiento de Uso</h2>
+                
+                <div class="consent-text">
+                    <p>Por medio de la presente, autorizo formalmente al Hospital Metropolitano de Santiago (HOMS) a utilizar mi firma digital registrada en este documento exclusivamente para la validación, autorización y emisión de reportes médicos dentro del nuevo sistema Ramsoft. Entiendo y acepto que el uso de esta firma tiene la misma validez legal que mi firma autógrafa.</p>
+                </div>
+                
+                <div class="canvas-container">
+                    <label>Firme aquí su consentimiento:</label>
+                    <canvas id="canvas-consent" width="500" height="200"></canvas>
+                    <div class="canvas-actions">
+                        <button class="btn btn-secondary" onclick="clearCanvas('canvas-consent')">Limpiar Firma</button>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" onclick="generateConsentPDF()">Generar PDF de Consentimiento</button>
+            </section>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
