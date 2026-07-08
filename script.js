@@ -1,7 +1,7 @@
 // Configuración de GitHub (¡Reemplaza estos valores con los tuyos!)
-const GITHUB_TOKEN = 'TU_TOKEN_AQUI'; // Ej: ghp_xxxxxxxxxxxxxxxxxxxx
-const GITHUB_OWNER = 'TU_USUARIO_GITHUB';
-const GITHUB_REPO = 'NOMBRE_DE_TU_REPOSITORIO';
+const GITHUB_TOKEN = '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'; // Ej: ghp_xxxxxxxxxxxxxxxxxxxx
+const GITHUB_OWNER = 'Yxff26';
+const GITHUB_REPO = 'HOMS-FIRMAS';
 
 // Función para subir archivos a la API de GitHub
 async function uploadToGitHub(filename, base64Content, folderName) {
