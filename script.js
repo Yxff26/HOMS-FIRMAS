@@ -5,7 +5,7 @@ const GITHUB_REPO = 'HOMS-FIRMAS';
 
 // Función para subir archivos a la API de GitHub
 async function uploadToGitHub(filename, base64Content, folderName) {
-    if (GITHUB_TOKEN === 'TU_TOKEN_AQUI') {
+    if (GITHUB_TOKEN === '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') {
         alert("Falta configurar: Debes poner tu GITHUB_TOKEN, USUARIO y REPOSITORIO en las primeras líneas de script.js");
         return false;
     }
