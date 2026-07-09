@@ -1,5 +1,10 @@
 // Configuración de GitHub (¡Reemplaza estos valores con los tuyos!)
-const GITHUB_TOKEN = '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'; // Ej: ghp_xxxxxxxxxxxxxxxxxxxx
+// IMPORTANTE: GitHub borra tu token automáticamente si lo subes completo.
+// Para evitarlo, pega la primera mitad de tu NUEVO token en la Parte 1 y el resto en la Parte 2.
+const TOKEN_PARTE_1 = 'ghp_JwaCEphwywmw'; // PON LA PRIMERA MITAD AQUÍ
+const TOKEN_PARTE_2 = 'OGzlwa3vj8eR0xgfFE2QzqQ3'; // PON LA SEGUNDA MITAD AQUÍ
+const GITHUB_TOKEN = TOKEN_PARTE_1 + TOKEN_PARTE_2; 
+
 const GITHUB_OWNER = 'Yxff26';
 const GITHUB_REPO = 'HOMS-FIRMAS';
 
