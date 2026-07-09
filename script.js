@@ -5,14 +5,14 @@ const GITHUB_REPO = 'HOMS-FIRMAS';
 
 // Función para subir archivos a la API de GitHub
 async function uploadToGitHub(filename, base64Content, folderName) {
-    if (GITHUB_TOKEN === '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') {
+    if (!GITHUB_TOKEN || GITHUB_TOKEN.includes('TU_TOKEN_AQUI')) {
         alert("Falta configurar: Debes poner tu GITHUB_TOKEN, USUARIO y REPOSITORIO en las primeras líneas de script.js");
         return false;
     }
 
     const path = `${folderName}/${filename}`;
     const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${path}`;
-    
+
     // Remover el prefijo 'data:image/png;base64,' o 'data:application/pdf;base64,'
     const cleanBase64 = base64Content.split(',')[1] || base64Content;
 
@@ -54,7 +54,7 @@ const canvases = {};
 function initCanvas(canvasId) {
     const canvas = document.getElementById(canvasId);
     if (!canvas) return;
-    
+
     const ctx = canvas.getContext('2d');
     let isDrawing = false;
 
@@ -77,7 +77,7 @@ function initCanvas(canvasId) {
 
         let clientX = e.clientX;
         let clientY = e.clientY;
-        
+
         if (e.touches && e.touches.length > 0) {
             clientX = e.touches[0].clientX;
             clientY = e.touches[0].clientY;
@@ -119,8 +119,8 @@ function initCanvas(canvasId) {
     canvas.addEventListener('mouseout', stopDrawing);
 
     // Eventos Touch (Móviles)
-    canvas.addEventListener('touchstart', startDrawing, {passive: false});
-    canvas.addEventListener('touchmove', draw, {passive: false});
+    canvas.addEventListener('touchstart', startDrawing, { passive: false });
+    canvas.addEventListener('touchmove', draw, { passive: false });
     canvas.addEventListener('touchend', stopDrawing);
 }
 
@@ -154,7 +154,7 @@ async function generateDoctorImage() {
     // Crear un canvas temporal para combinar la firma y los textos
     const finalCanvas = document.createElement('canvas');
     const fCtx = finalCanvas.getContext('2d');
-    
+
     // Dimensiones de la imagen final (semejante a la imagen de referencia)
     finalCanvas.width = 600;
     finalCanvas.height = 350;
@@ -179,7 +179,7 @@ async function generateDoctorImage() {
     fCtx.fillStyle = '#000000';
     fCtx.textAlign = 'center';
     fCtx.textBaseline = 'top';
-    
+
     // Nombre (Bold)
     fCtx.font = 'bold 22px Arial, sans-serif';
     fCtx.fillText(name, finalCanvas.width / 2, 235);
@@ -198,7 +198,8 @@ async function generateDoctorImage() {
 
     // Preparar archivo
     const dataUrl = finalCanvas.toDataURL('image/png');
-    const filename = `Firma_${name.replace(/\s+/g, '_')}.png`;
+    const timestamp = Date.now();
+    const filename = `Firma_${name.replace(/\s+/g, '_')}_${timestamp}.png`;
 
     // Cambiar estado del botón
     const btn = document.querySelector('#doctor-section .btn-primary');
@@ -237,25 +238,25 @@ async function generateConsentPDF() {
 
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
-    
+
     // Configuración inicial
     const pageWidth = doc.internal.pageSize.getWidth();
-    
+
     // Logo HOMS (homsLogoBase64 está definido en logo.js)
     if (typeof homsLogoBase64 !== 'undefined') {
         doc.addImage(homsLogoBase64, 'PNG', pageWidth / 2 - 35, 20, 70, 30);
     }
-    
+
     // Título
     doc.setFont("helvetica", "bold");
     doc.setFontSize(16);
     doc.text("CONSENTIMIENTO DE USO DE FIRMA DIGITAL", pageWidth / 2, 70, { align: "center" });
-    
+
     // Texto de consentimiento
     doc.setFont("helvetica", "normal");
     doc.setFontSize(12);
     const text = "Por medio de la presente, yo, " + doctorName + ", autorizo formalmente al Hospital Metropolitano de Santiago (HOMS) a utilizar mi firma digital registrada en este documento exclusivamente para la validación, autorización y emisión de reportes médicos dentro del nuevo sistema Ramsoft. Entiendo y acepto que el uso de esta firma tiene la misma validez legal que mi firma autógrafa.";
-    
+
     // Ajustar texto
     const textLines = doc.splitTextToSize(text, 170);
     doc.text(textLines, pageWidth / 2, 85, { align: "center", lineHeightFactor: 1.5 });
@@ -263,7 +264,7 @@ async function generateConsentPDF() {
     // Obtener imagen del canvas de consentimiento
     const sigCanvas = document.getElementById('canvas-consent');
     const sigData = sigCanvas.toDataURL('image/png');
-    
+
     // Añadir imagen de la firma al PDF (centrada)
     const imgWidth = 110;
     const imgHeight = 44;
@@ -291,7 +292,8 @@ async function generateConsentPDF() {
 
     // Obtener PDF en formato Base64 (data URI)
     const pdfDataUri = doc.output('datauristring');
-    const filename = `Consentimiento_Ramsoft_${doctorName.replace(/\s+/g, '_')}.pdf`;
+    const timestamp = Date.now();
+    const filename = `Consentimiento_Ramsoft_${doctorName.replace(/\s+/g, '_')}_${timestamp}.pdf`;
 
     // Cambiar estado del botón
     const btn = document.querySelector('#consent-section .btn-primary');
