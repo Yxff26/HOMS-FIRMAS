@@ -1,5 +1,5 @@
 // Configuración de GitHub (¡Reemplaza estos valores con los tuyos!)
-const GITHUB_TOKEN = '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'; // Ej: ghp_xxxxxxxxxxxxxxxxxxxx
+const GITHUB_TOKEN = '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'; // Ej: ghp_xxxxxxxxxxxxxxxxxxxx
 const GITHUB_OWNER = 'Yxff26';
 const GITHUB_REPO = 'HOMS-FIRMAS';
 
